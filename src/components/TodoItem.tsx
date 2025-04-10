@@ -1,11 +1,8 @@
 import { ListItem, Checkbox, Typography } from '@mui/material'
+import { Todo } from './../types/types'
 
 interface TodoItemProps {
-  todo: {
-    id: number
-    text: string
-    completed: boolean
-  }
+  todo: Todo
   onToggle: (id: number) => void
 }
 

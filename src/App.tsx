@@ -2,16 +2,12 @@ import { useState } from 'react'
 import { Typography, Container } from '@mui/material'
 import './App.css'
 import { TodoInput } from './components/TodoInput'
-import { TodoItem } from './components/TodoItem'
-
-interface Todo {
-  id: number
-  text: string
-  completed: boolean
-}
+import { TodoList } from './components/TodoList'
+import { Todo } from './types/types'
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([])
+  const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('all')
 
   const handleAdd = (text: string) => {
     setTodos([...todos, { id: Date.now(), text, completed: false }])
@@ -31,9 +27,7 @@ function App() {
         todos
       </Typography>
       <TodoInput onAdd={handleAdd} />
-      {todos.map((todo) => (
-        <TodoItem key={todo.id} todo={todo} onToggle={handleToggle} />
-      ))}
+      <TodoList todos={todos} filter={filter} onToggle={handleToggle} />
     </Container>
   )
 }
