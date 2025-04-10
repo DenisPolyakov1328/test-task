@@ -2,12 +2,13 @@ import { useState } from 'react'
 import { Typography, Container } from '@mui/material'
 import './App.css'
 import { TodoInput } from './components/TodoInput'
+import { TodoFilter } from './components/TodoFilter'
 import { TodoList } from './components/TodoList'
-import { Todo } from './types/types'
+import { Todo, FilterType } from './types/types'
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([])
-  const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('all')
+  const [filter, setFilter] = useState<FilterType>('all')
 
   const handleAdd = (text: string) => {
     setTodos([...todos, { id: Date.now(), text, completed: false }])
@@ -21,6 +22,10 @@ function App() {
     )
   }
 
+  const handleFilterChange = (newFilter: FilterType) => {
+    setFilter(newFilter)
+  }
+
   return (
     <Container className="App">
       <Typography variant="h1" gutterBottom>
@@ -28,6 +33,7 @@ function App() {
       </Typography>
       <TodoInput onAdd={handleAdd} />
       <TodoList todos={todos} filter={filter} onToggle={handleToggle} />
+      <TodoFilter currentFilter={filter} onFilterChange={handleFilterChange} />
     </Container>
   )
 }
