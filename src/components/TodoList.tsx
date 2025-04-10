@@ -1,5 +1,5 @@
 import React from 'react'
-import { List } from '@mui/material'
+import { motion, AnimatePresence } from 'framer-motion'
 import { TodoItem } from './TodoItem'
 import { Todo } from './../types/types'
 
@@ -18,11 +18,19 @@ export const TodoList = React.memo(
     })
 
     return (
-      <List dense={false}>
+      <AnimatePresence>
         {filteredTodos.map((todo) => (
-          <TodoItem key={todo.id} todo={todo} onToggle={onToggle} />
+          <motion.div
+            key={todo.id}
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <TodoItem todo={todo} onToggle={onToggle} />
+          </motion.div>
         ))}
-      </List>
+      </AnimatePresence>
     )
   }
 )
