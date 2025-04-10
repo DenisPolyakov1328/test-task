@@ -6,6 +6,7 @@ import { TodoFilter } from './components/TodoFilter'
 import { TodoList } from './components/TodoList'
 import { Todo, FilterType } from './types/types'
 import { Counter } from './components/Counter'
+import { ClearButton } from './components/ClearButton'
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([])
@@ -27,6 +28,13 @@ function App() {
     setFilter(newFilter)
   }
 
+  const hasCompletedTodos = todos.some((todo) => todo.completed)
+
+  const handleClearCompleted = () => {
+    setTodos(todos.filter((todo) => !todo.completed))
+    setFilter('all')
+  }
+
   return (
     <Container className="App">
       <Typography variant="h1" gutterBottom>
@@ -36,6 +44,10 @@ function App() {
       <TodoList todos={todos} filter={filter} onToggle={handleToggle} />
       <TodoFilter currentFilter={filter} onFilterChange={handleFilterChange} />
       <Counter todos={todos} />
+      <ClearButton
+        hasCompletedTodos={hasCompletedTodos}
+        onClearCompleted={handleClearCompleted}
+      />
     </Container>
   )
 }
