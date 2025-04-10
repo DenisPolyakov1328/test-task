@@ -5,6 +5,7 @@ import { TodoInput } from './components/TodoInput'
 import { TodoFilter } from './components/TodoFilter'
 import { TodoList } from './components/TodoList'
 import { Todo, FilterType } from './types/types'
+import { Counter } from './components/Counter'
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([])
@@ -34,6 +35,7 @@ function App() {
       <TodoInput onAdd={handleAdd} />
       <TodoList todos={todos} filter={filter} onToggle={handleToggle} />
       <TodoFilter currentFilter={filter} onFilterChange={handleFilterChange} />
+      <Counter todos={todos} />
     </Container>
   )
 }
