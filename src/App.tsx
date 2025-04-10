@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTodoStorage } from './hooks/useTodoStorage'
 import { Typography, Container } from '@mui/material'
 import './App.css'
 import { TodoInput } from './components/TodoInput'
@@ -9,7 +10,7 @@ import { Counter } from './components/Counter'
 import { ClearButton } from './components/ClearButton'
 
 function App() {
-  const [todos, setTodos] = useState<Todo[]>([])
+  const [todos, setTodos] = useTodoStorage([])
   const [filter, setFilter] = useState<FilterType>('all')
 
   const handleAdd = (text: string) => {
