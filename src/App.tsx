@@ -1,11 +1,11 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { useTodoStorage } from './hooks/useTodoStorage'
 import { Typography, Container } from '@mui/material'
 import './App.css'
 import { TodoInput } from './components/TodoInput'
 import { TodoFilter } from './components/TodoFilter'
 import { TodoList } from './components/TodoList'
-import { Todo, FilterType } from './types/types'
+import { FilterType } from './types/types'
 import { Counter } from './components/Counter'
 import { ClearButton } from './components/ClearButton'
 
@@ -17,13 +17,13 @@ function App() {
     setTodos([...todos, { id: Date.now(), text, completed: false }])
   }
 
-  const handleToggle = (id: number) => {
-    setTodos(
-      todos.map((todo) =>
+  const handleToggle = useCallback((id: number) => {
+    setTodos((prev) =>
+      prev.map((todo) =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
       )
     )
-  }
+  }, [])
 
   const handleFilterChange = (newFilter: FilterType) => {
     setFilter(newFilter)

@@ -1,3 +1,4 @@
+import React from 'react'
 import { ListItem, Checkbox, Typography } from '@mui/material'
 import { Todo } from './../types/types'
 
@@ -6,7 +7,7 @@ interface TodoItemProps {
   onToggle: (id: number) => void
 }
 
-export const TodoItem = ({ todo, onToggle }: TodoItemProps) => {
+export const TodoItem = React.memo(({ todo, onToggle }: TodoItemProps) => {
   return (
     <ListItem>
       <Checkbox
@@ -28,4 +29,4 @@ export const TodoItem = ({ todo, onToggle }: TodoItemProps) => {
       </Typography>
     </ListItem>
   )
-}
+})
