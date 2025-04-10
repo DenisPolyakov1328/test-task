@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { Typography } from '@mui/material'
+import { Typography, Container } from '@mui/material'
 import './App.css'
 import { TodoInput } from './components/TodoInput'
+import { TodoItem } from './components/TodoItem'
 
 interface Todo {
   id: number
@@ -15,13 +16,25 @@ function App() {
   const handleAdd = (text: string) => {
     setTodos([...todos, { id: Date.now(), text, completed: false }])
   }
+
+  const handleToggle = (id: number) => {
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
+    )
+  }
+
   return (
-    <div className="App">
+    <Container className="App">
       <Typography variant="h1" gutterBottom>
         todos
       </Typography>
       <TodoInput onAdd={handleAdd} />
-    </div>
+      {todos.map((todo) => (
+        <TodoItem key={todo.id} todo={todo} onToggle={handleToggle} />
+      ))}
+    </Container>
   )
 }
 
