@@ -16,7 +16,26 @@ export const TodoFilter = ({
       exclusive
       onChange={(_, newFilter) => newFilter && onFilterChange(newFilter)}
       aria-label="Фильтр задач"
-      fullWidth
+      sx={{
+        gap: 1,
+        '& .MuiToggleButtonGroup-grouped': {
+          color: 'text.secondary',
+          border: '2px solid transparent',
+          borderRadius: '4px',
+          bgcolor: 'transparent',
+          textTransform: 'none',
+          py: '5px',
+          px: '10px',
+          '&:hover, &.Mui-selected:hover': {
+            bgcolor: 'transparent'
+          },
+          '&.Mui-selected': {
+            borderColor: '#ffcdd2',
+            color: 'text.secondary',
+            bgcolor: 'transparent'
+          }
+        }
+      }}
     >
       <ToggleButton value="all" aria-label="Все задачи">
         All

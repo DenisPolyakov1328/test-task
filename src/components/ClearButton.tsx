@@ -1,24 +1,26 @@
 import { Button } from '@mui/material'
 
 interface ClearButtonProps {
-  hasCompletedTodos: boolean
   onClearCompleted: () => void
+  children: React.ReactNode
 }
 
 export const ClearButton = ({
-  hasCompletedTodos,
-  onClearCompleted
+  onClearCompleted,
+  children
 }: ClearButtonProps) => {
-  if (!hasCompletedTodos) return null
-
   return (
     <Button
-      variant="outlined"
+      variant="text"
       onClick={onClearCompleted}
-      sx={{ marginTop: 2 }}
-      data-testid="clear-button"
+      sx={{
+        color: 'text.secondary',
+        textTransform: 'none',
+        py: '7px',
+        px: '10px'
+      }}
     >
-      Clear completed
+      {children}
     </Button>
   )
 }

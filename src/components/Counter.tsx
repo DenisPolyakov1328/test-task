@@ -9,7 +9,10 @@ export const Counter = ({ todos }: CounterProps) => {
   const activeCount = todos.filter((todo) => !todo.completed).length
 
   return (
-    <Typography variant="body1" sx={{ padding: '8px 0' }}>
+    <Typography
+      variant="body1"
+      sx={{ color: 'text.secondary', minWidth: '100px' }}
+    >
       {activeCount} {activeCount === 1 ? 'item' : 'items'} left
     </Typography>
   )
