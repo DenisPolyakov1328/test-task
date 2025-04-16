@@ -47,7 +47,14 @@ function App() {
         alignItems: 'center'
       }}
     >
-      <Typography variant="h1" sx={{ my: '20px' }}>
+      <Typography
+        variant="h1"
+        sx={{
+          my: '20px',
+          color: '#fbb6bd',
+          fontWeight: 100
+        }}
+      >
         todos
       </Typography>
       <Container

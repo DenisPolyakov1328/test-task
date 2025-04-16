@@ -44,6 +44,9 @@ export const TodoInput = ({ onAdd }: TodoInputProps) => {
           '&:before': {
             borderBottom: '1px solid #c1c1c1'
           }
+        },
+        '.MuiInputBase-input::placeholder': {
+          fontStyle: 'italic'
         }
       }}
     />
