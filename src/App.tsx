@@ -1,41 +1,21 @@
-import { useState, useCallback } from 'react'
-import { useTodoStorage } from './hooks/useTodoStorage'
 import { Typography, Container, Box } from '@mui/material'
 import './App.css'
-import { TodoInput } from './components/TodoInput'
-import { TodoFilter } from './components/TodoFilter'
-import { TodoList } from './components/TodoList'
-import { FilterType } from './types/types'
-import { Counter } from './components/Counter'
-import { ClearButton } from './components/ClearButton'
+import { useTodoStorage } from './hooks/useTodoStorage'
+import { useTodos } from './hooks/useTodos'
+import { TodoInput } from './components/TodoInput/TodoInput'
+import { TodoList } from './components/TodoList/TodoList'
+import { ControlBar } from './components/ControlBar/ControlBar'
 
 function App() {
   const [todos, setTodos] = useTodoStorage([])
-  const [filter, setFilter] = useState<FilterType>('all')
-
-  const handleAdd = (text: string) => {
-    setTodos([...todos, { id: Date.now(), text, completed: false }])
-  }
-
-  const handleToggle = useCallback(
-    (id: number) => {
-      setTodos((prev) =>
-        prev.map((todo) =>
-          todo.id === id ? { ...todo, completed: !todo.completed } : todo
-        )
-      )
-    },
-    [setTodos]
-  )
-
-  const handleFilterChange = (newFilter: FilterType) => {
-    setFilter(newFilter)
-  }
-
-  const handleClearCompleted = () => {
-    setTodos(todos.filter((todo) => !todo.completed))
-    setFilter('all')
-  }
+  const {
+    filteredTodos,
+    filter,
+    handleAdd,
+    handleToggle,
+    handleFilterChange,
+    handleClearCompleted
+  } = useTodos(todos, setTodos)
 
   return (
     <Box
@@ -77,26 +57,18 @@ function App() {
           }}
         >
           <TodoInput onAdd={handleAdd} />
-          <TodoList todos={todos} filter={filter} onToggle={handleToggle} />
+          <TodoList
+            todos={filteredTodos}
+            filter={filter}
+            onToggle={handleToggle}
+          />
 
-          <Box
-            sx={{
-              mt: 'auto',
-              p: 2,
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center'
-            }}
-          >
-            <Counter todos={todos} />
-            <TodoFilter
-              currentFilter={filter}
-              onFilterChange={handleFilterChange}
-            />
-            <ClearButton onClearCompleted={handleClearCompleted}>
-              Clear completed
-            </ClearButton>
-          </Box>
+          <ControlBar
+            todos={todos}
+            filter={filter}
+            handleFilterChange={handleFilterChange}
+            handleClearCompleted={handleClearCompleted}
+          />
         </Box>
       </Container>
     </Box>

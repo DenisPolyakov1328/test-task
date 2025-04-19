@@ -14,6 +14,18 @@ export const TodoInput = ({ onAdd }: TodoInputProps) => {
     onAdd(text)
     setText('')
   }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setText(e.target.value)
+  }
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault()
+      handleAdd()
+    }
+  }
+
   return (
     <TextField
       variant="standard"
@@ -22,13 +34,8 @@ export const TodoInput = ({ onAdd }: TodoInputProps) => {
       maxRows={4}
       fullWidth
       value={text}
-      onChange={(e) => setText(e.target.value)}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' && !e.shiftKey) {
-          e.preventDefault()
-          handleAdd()
-        }
-      }}
+      onChange={handleChange}
+      onKeyDown={handleKeyDown}
       slotProps={{
         input: {
           startAdornment: (

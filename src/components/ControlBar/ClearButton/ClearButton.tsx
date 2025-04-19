@@ -1,13 +1,13 @@
-import { Button } from '@mui/material'
+import { Button, ButtonProps } from '@mui/material'
 
-interface ClearButtonProps {
+interface ClearButtonProps extends ButtonProps {
   onClearCompleted: () => void
-  children: React.ReactNode
 }
 
 export const ClearButton = ({
   onClearCompleted,
-  children
+  children,
+  ...props
 }: ClearButtonProps) => {
   return (
     <Button
@@ -17,8 +17,10 @@ export const ClearButton = ({
         color: 'text.secondary',
         textTransform: 'none',
         py: '7px',
-        px: '10px'
+        px: '10px',
+        minWidth: '120px'
       }}
+      {...props}
     >
       {children}
     </Button>

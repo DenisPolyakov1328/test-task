@@ -1,8 +1,8 @@
 import React from 'react'
 import { List } from '@mui/material'
 import { motion, AnimatePresence } from 'framer-motion'
-import { TodoItem } from './TodoItem'
-import { Todo } from './../types/types'
+import { TodoItem } from './../TodoItem/TodoItem'
+import { Todo } from './../../types/types'
 
 interface TodoListProps {
   todos: Todo[]
@@ -10,13 +10,18 @@ interface TodoListProps {
   onToggle: (id: number) => void
 }
 
+const getFilteredTodos = (
+  todos: Todo[],
+  filter: 'all' | 'active' | 'completed'
+) => {
+  if (filter === 'active') return todos.filter((todo) => !todo.completed)
+  if (filter === 'completed') return todos.filter((todo) => todo.completed)
+  return todos
+}
+
 export const TodoList = React.memo(
   ({ todos, filter, onToggle }: TodoListProps) => {
-    const filteredTodos = todos.filter((todo) => {
-      if (filter === 'active') return !todo.completed
-      if (filter === 'completed') return todo.completed
-      return true
-    })
+    const filteredTodos = getFilteredTodos(todos, filter)
 
     return (
       <List

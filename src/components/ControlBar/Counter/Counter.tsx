@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material'
-import { Todo } from './../types/types'
+import { Todo } from './../../../types/types'
 
 interface CounterProps {
   todos: Todo[]
